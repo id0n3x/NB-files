@@ -22,7 +22,7 @@ def updateMsgs(client, message,redis):
   if text and text == "نقل البيانات" and rank == "sudo":
     if redis.smembers(BOT_ID+"Tshake:Chek:Groups"):
       Ngp = redis.scard(BOT_ID+"Tshake:Chek:Groups")
-      Bot("sendMessage",{"chat_id":chatID,"text":"تم ايجاد ({}) مجموعات خاصه بسورس تشاكي سيتم نقلها الى (<a href=\"http://t.me/nbbot\">NewBot</a>)\nقد يستغرق بعض الوقت".format(Ngp),"reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
+      Bot("sendMessage",{"chat_id":chatID,"text":"تم ايجاد ({}) مجموعات خاصه بسورس تشاكي سيتم نقلها الى (<a href=\"http://t.me/calmaacc\">NewBot</a>)\nقد يستغرق بعض الوقت".format(Ngp),"reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
     else:
       Bot("sendMessage",{"chat_id":chatID,"text":"عذراً لا توجد بيانات خاصه بسورس تشاكي","reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
       return False
@@ -82,4 +82,4 @@ def updateMsgs(client, message,redis):
       if redis.get(BOT_ID+"Tshake:Lock:User:Name"+gp):
         redis.sadd("{}Nbot:Lusername".format(BOT_ID),gp)
 
-    Bot("sendMessage",{"chat_id":chatID,"text":"تم نقل البيانات من سورس تشاكي الى (<a href=\"http://t.me/nbbot\">NewBot</a>)","reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
+    Bot("sendMessage",{"chat_id":chatID,"text":"تم نقل البيانات من سورس تشاكي الى (<a href=\"http://t.me/calmaacc\">NewBot</a>)","reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
