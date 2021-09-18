@@ -24,9 +24,9 @@ def updateMsgs(client, message,redis):
   title = message.chat.title
   rank = isrank(redis,userID,chatID)
   text = message.text
-  games = {"rps.py":"ًں§±ًں“ƒâœ‚ï¸ڈ","xo.py":"â‌Œ â­•ï¸ڈ"}
-  if text and re.search("^ط§ظ„ط§ظ„ط¹ط§ط¨$|^ط§ظ„ط¹ط§ط¨$",text):
-    tx = "ًں•¹ê’گ ط§ظ„ظٹظƒ ط§ظ„ط§ظ„ط¹ط§ط¨ ط§ظ„ظ…ظ‚ط¯ظ…ظ‡ ظ…ظ† (<a href=\"http://t.me/calmaacc\">LomaV2</a>)"
+  games = {"rps.py":"🧱📃✂️","xo.py":"❌ ⭕️"}
+  if text and re.search("^الالعاب$|^العاب$",text):
+    tx = "🕹꒐ اليك الالعاب المقدمة من (<a href=\"http://t.me/calmaacc\">LomaV2</a>)"
     onlyfiles = [f for f in listdir("files") if isfile(join("files", f))]
     array = []
     if not onlyfiles:
@@ -37,9 +37,9 @@ def updateMsgs(client, message,redis):
     kb = InlineKeyboardMarkup(array)
     Bot("sendMessage",{"chat_id":chatID,"text":tx,"reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True,"reply_markup":kb})
 
-  if text and re.search("^ظ†ظ‚ط§ط·ظٹ$",text):
+  if text and re.search("^نقاطي$",text):
     points = (redis.hget("{}Nbot:{}:points".format(BOT_ID,chatID),userID) or 0)
-    Bot("sendMessage",{"chat_id":chatID,"text":"ًں”¢ê’گ ظ†ظ‚ط§ط·ظƒ :- ({})".format(points),"reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
+    Bot("sendMessage",{"chat_id":chatID,"text":"🔢꒐ نقاطك :- ({})".format(points),"reply_to_message_id":message.message_id,"parse_mode":"html","disable_web_page_preview":True})
 
 def updateCb(client, callback_query,redis):
   pass
