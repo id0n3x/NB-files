@@ -29,11 +29,11 @@ def get_winner(first, second):
 
 def emj(ch1):
   if ch1 == "ROCK":
-    return "ًں§±"
+    return "🧱"
   if ch1 == "PAPER":
-    return "ًں“ƒ"
+    return "📃"
   if ch1 == "SCISSORS":
-    return "âœ‚ï¸ڈ"
+    return "✂️"
 def updateMsgs(client, message,redis):
   pass
 
@@ -48,34 +48,40 @@ def updateCb(client, callback_query,redis):
   chatID = callback_query.message.chat.id
   message_id = callback_query.message.message_id
   if re.search("^rps.pyplay$",date):
-    start = """âœ‚ï¸ڈê’گ ط­ط¬ط±ظ‡ ظˆط±ظ‚ظ‡ ظ…ظ‚طµ
-ًں‘¤ê’گ ط§ط¶ط؛ط· ظ„ظ„ط¹ط¨ ظ…ط¹ ({})""".format(userFN)
-    kb = InlineKeyboardMarkup([[InlineKeyboardButton("ط§ظ„ط¹ط¨", callback_data="rps="+str(userID))]])
+    start = """✂️꒐ حجره ورقه مقص
+👤꒐ اضغط للعب مع ({})""".format(userFN)
+    kb = InlineKeyboardMarkup([[InlineKeyboardButton("العب", callback_data="rps="+str(userID))]])
     Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":start,"disable_web_page_preview":True,"reply_markup":kb})
 
   if re.search("rer=",date):
     tx = callback_query.message.text
     p1 = date.split("=")[1]
     if userID == int(p1):
-      start = """âœ‚ï¸ڈê’گ ط­ط¬ط±ظ‡ ظˆط±ظ‚ظ‡ ظ…ظ‚طµ
-ًں‘¤ê’گ ط§ط¶ط؛ط· ظ„ظ„ط¹ط¨ ظ…ط¹ ({})""".format(userFN)
-      kb = InlineKeyboardMarkup([[InlineKeyboardButton("ط§ظ„ط¹ط¨", callback_data="rps="+str(userID))]])
+      start = """✂️꒐ حجره ورقه مقص
+👤꒐ اضغط للعب مع ({})""".format(userFN)
+      kb = InlineKeyboardMarkup([[InlineKeyboardButton("العب", callback_data="rps="+str(userID))]])
       Bot("sendMessage",{"chat_id":chatID,"text":start,"disable_web_page_preview":True,"reply_markup":kb})
       Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":tx,"disable_web_page_preview":True})
     else:
-      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"ط¹ط°ط±ط§ظ‹ ط§ظ„ظ„ط¹ط¨ظ‡ ظ„ظٹط³طھ ظ„ظƒ","show_alert":True})
+      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"عذرًا اللعبه ليست لك","show_alert":True})
 
 
-  go = """{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط§ظˆظ„ :- ({})
-{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط«ط§ظ†ظٹ :- ({})
-ًں”½ê’گ ط§ط®طھط± ظ…ط§ طھط±ظٹط¯ ({})"""
-  go2 = """{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط§ظˆظ„ :- ({})
-{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط«ط§ظ†ظٹ :- ({})
-ًںژٹê’گ ط§ظ„ظپط§ط¦ط² ({})"""
+  go = """{}꒐ اللاعب الاول :- ({})
+{}꒐ اللاعب الثاني :- ({})
 
-  go3 = """{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط§ظˆظ„ :- ({})
-{}ê’گ ط§ظ„ظ„ط§ط¹ط¨ ط§ظ„ط«ط§ظ†ظٹ :- ({})
-ًں”´ê’گ طھط¹ط§ط¯ظ„"""
+
+🔽꒐ اختر ما تريد ({})"""
+  go2 = """{}꒐ اللاعب الاول :- ({})
+{}꒐ اللاعب الثاني :- ({})
+
+
+🎊꒐ الفائز ({})"""
+
+  go3 = """{}꒐ اللاعب الاول :- ({})
+{}꒐ اللاعب الثاني :- ({})
+
+
+🔴꒐ تعادل"""
 
   if re.search("st1=",date):
     ex = date.split("=")
@@ -89,17 +95,17 @@ def updateCb(client, callback_query,redis):
     except Exception as e:
       userFn = user2
     if userID != int(user1):
-      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"ط§ظ†طھط¸ط± ط¯ظˆط±ظƒ","show_alert":True})
+      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"انتظر دورك","show_alert":True})
       return False
     ch = ANSWERS[int(chs)]
     kb = InlineKeyboardMarkup([
-      [InlineKeyboardButton("ًں§±",callback_data="st2={}={}=0={}".format(user1,user2,chs)),
-      InlineKeyboardButton("ًں“ƒ",callback_data="st2={}={}=1={}".format(user1,user2,chs)),
-      InlineKeyboardButton("âœ‚ï¸ڈ",callback_data="st2={}={}=2={}".format(user1,user2,chs)),],
+      [InlineKeyboardButton("🧱",callback_data="st2={}={}=0={}".format(user1,user2,chs)),
+      InlineKeyboardButton("📃",callback_data="st2={}={}=1={}".format(user1,user2,chs)),
+      InlineKeyboardButton("✂️",callback_data="st2={}={}=2={}".format(user1,user2,chs)),],
 
-      [InlineKeyboardButton("ًں“£",url="t.me/calmaacc")]
+      [InlineKeyboardButton("📣",url="t.me/calmapubg")]
       ])
-    Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go.format("âœ…",userFN,"âڈ؛",userFn, userFn),"disable_web_page_preview":True,"reply_markup":kb})
+    Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go.format("✅",userFN,"⏺",userFn, userFn),"disable_web_page_preview":True,"reply_markup":kb})
 
   if re.search("st2=",date):
     ex = date.split("=")
@@ -113,7 +119,7 @@ def updateCb(client, callback_query,redis):
     except Exception as e:
       userFn = user1
     if userID != int(user2):
-      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"ط§ظ†طھط¸ط± ط¯ظˆط±ظƒ","show_alert":True})
+      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"انتظر دورك","show_alert":True})
       return False
     ch1 = ANSWERS[int(chs1)]
     ch2 = ANSWERS[int(chs2)]
@@ -127,13 +133,13 @@ def updateCb(client, callback_query,redis):
         us = userFn
         usin = user1
       redis.hincrby("{}Nbot:{}:points".format(BOT_ID,chatID),usin,5)
-      kb = InlineKeyboardMarkup([[InlineKeyboardButton("ط§ظ„ظ„ط¹ط¨ ظ…ط¬ط¯ط¯ط§ظ‹",callback_data="rer={}".format(user1))]])
+      kb = InlineKeyboardMarkup([[InlineKeyboardButton("اللعب مجدداً",callback_data="rer={}".format(user1))]])
       Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go2.format(emj(ch1),userFn,emj(ch2),userFN, us),"disable_web_page_preview":True,"reply_markup":kb})
 
     elif winer == "tie":
       redis.hincrby("{}Nbot:{}:points".format(BOT_ID,chatID),user1,2)
       redis.hincrby("{}Nbot:{}:points".format(BOT_ID,chatID),user2,2)
-      kb = InlineKeyboardMarkup([[InlineKeyboardButton("ط§ظ„ظ„ط¹ط¨ ظ…ط¬ط¯ط¯ط§ظ‹",callback_data="rer={}".format(user1))]])
+      kb = InlineKeyboardMarkup([[InlineKeyboardButton("اللعب مجددًا",callback_data="rer={}".format(user1))]])
       Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go3.format(emj(ch1),userFn,emj(ch2),userFN),"disable_web_page_preview":True,"reply_markup":kb})
 
 
@@ -141,7 +147,7 @@ def updateCb(client, callback_query,redis):
   if re.search("rps=",date):
     userid = date.split("=")[1]
     if userID == int(userid):
-      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"ط§ظ†طھ ظ…ظ† ط¨ط¯ط£طھ ط§ظ„ظ„ط¹ط¨ظ‡ ط§ظ†طھط¸ط± ط§ط­ط¯ ط§طµط¯ظ‚ط§ط¦ظƒ","show_alert":True})
+      Bot("answerCallbackQuery",{"callback_query_id":callback_query.id,"text":"انت من بدأت اللعبة انتظر احد اصدقائك","show_alert":True})
       return False
     try:
       getUser = client.get_users(userid)
@@ -150,14 +156,14 @@ def updateCb(client, callback_query,redis):
     except Exception as e:
       userFn = userid
     kb = InlineKeyboardMarkup([
-      [InlineKeyboardButton("ًں§±",callback_data="st1={}={}=0".format(userid,userID)),
-      InlineKeyboardButton("ًں“ƒ",callback_data="st1={}={}=1".format(userid,userID)),
-      InlineKeyboardButton("âœ‚ï¸ڈ",callback_data="st1={}={}=2".format(userid,userID)),],
+      [InlineKeyboardButton("🧱",callback_data="st1={}={}=0".format(userid,userID)),
+      InlineKeyboardButton("📃",callback_data="st1={}={}=1".format(userid,userID)),
+      InlineKeyboardButton("✂️",callback_data="st1={}={}=2".format(userid,userID)),],
 
-      [InlineKeyboardButton("ًں“£",url="t.me/calmaacc")]
+      [InlineKeyboardButton("📣",url="t.me/calmapubg")]
       ])
 
-    Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go.format("âڈ؛",userFn,"âڈ؛",userFN, userFn),"disable_web_page_preview":True,"reply_markup":kb})
+    Bot("editMessageText",{"chat_id":chatID,"message_id":message_id,"text":go.format("⏺",userFn,"⏺",userFN, userFn),"disable_web_page_preview":True,"reply_markup":kb})
 
 
   
